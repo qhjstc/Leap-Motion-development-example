@@ -1,0 +1,13 @@
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/leap_example.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/libExampleConnection.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/libFunction.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/main.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/main_get_image.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/CallbackSample.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/ImageSample.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/PollingSample.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/InterpolationSample.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/RecordPlayBackSample.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/MultiDeviceSample.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir

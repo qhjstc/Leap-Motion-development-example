@@ -1,0 +1,150 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16.3"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "leap_example",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "CallbackSample::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CallbackSample-Debug-f0b52df3b43edd277a17.json",
+					"name" : "CallbackSample",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ImageSample::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ImageSample-Debug-9e26f80469a3ec3ef57f.json",
+					"name" : "ImageSample",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "InterpolationSample::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-InterpolationSample-Debug-972e110dbae9cd469894.json",
+					"name" : "InterpolationSample",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MultiDeviceSample::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MultiDeviceSample-Debug-013445510dd90eb76bf2.json",
+					"name" : "MultiDeviceSample",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PollingSample::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PollingSample-Debug-aa7649cb8dfc7b840feb.json",
+					"name" : "PollingSample",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "RecordPlayBackSample::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RecordPlayBackSample-Debug-05da4e02c1aa8bcdc7f1.json",
+					"name" : "RecordPlayBackSample",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "leap_example::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-leap_example-Debug-4201ee826cbb7823a9ff.json",
+					"name" : "leap_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "libExampleConnection::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-libExampleConnection-Debug-49909840090886193ede.json",
+					"name" : "libExampleConnection",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "libFunction::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-libFunction-Debug-a39ad86fa658460d8192.json",
+					"name" : "libFunction",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main-Debug-304ac1a787f5e9355a49.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main_get_image::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main_get_image-Debug-061b02bf0283d4529e3b.json",
+					"name" : "main_get_image",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/cityu/finger-tracking/software/leapmotion/leap-example/cmake-build-debug-visual-studio",
+		"source" : "D:/cityu/finger-tracking/software/leapmotion/leap-example"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
