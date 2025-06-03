@@ -14,9 +14,10 @@
 
 #include <Windows.h>
 #include <time.h>
+#include "math.h"
 #include "cJSON.h"
 
-LEAP_CONNECTION *connection;
+LEAP_CONNECTION *connection = NULL;
 
 char COLLECT_DATA_MODE[10] = "default";
 long long int WHOLE_SAMPLE_TIME = 6 * 60 * 1000;
@@ -25,32 +26,30 @@ char leapmotion_store_file_name[256] = "D:/cityu/finger-tracking/software/leapmo
 
 FILE* leapJsonFile;
 typedef struct Quaternion {
-    double w, x, y, z;
+    float w, x, y, z;
 } Quaternion;
 
-typedef struct Matrix {
-    double m[3][3];
-} Matrix;
-
-void quaternionToRotationMatrix(Quaternion q, Matrix *m) {
-    double n = q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w;
-    double s = (n > 0.0) ? (2.0 / n) : 0.0;
-    double wx = s*q.w*q.x, wy = s*q.w*q.y, wz = s*q.w*q.z;
-    double xx = s*q.x*q.x, xy = s*q.x*q.y, xz = s*q.x*q.z;
-    double yy = s*q.y*q.y, yz = s*q.y*q.z, zz = s*q.z*q.z;
-
-    m->m[0][0] = 1.0 - (yy + zz);
-    m->m[0][1] = xy - wz;
-    m->m[0][2] = xz + wy;
-
-    m->m[1][0] = xy + wz;
-    m->m[1][1] = 1.0 - (xx + zz);
-    m->m[1][2] = yz - wx;
-
-    m->m[2][0] = xz - wy;
-    m->m[2][1] = yz + wx;
-    m->m[2][2] = 1.0 - (xx + yy);
+// 计算两个四元数相乘
+Quaternion multiplyQuaternion(Quaternion q1, Quaternion q2) {
+    Quaternion result;
+    result.x = q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y;
+    result.y = q1.w * q2.y - q1.x * q2.z + q1.y * q2.w + q1.z * q2.x;
+    result.z = q1.w * q2.z + q1.x * q2.y - q1.y * q2.x + q1.z * q2.w;
+    result.w = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z;
+    return result;
 }
+
+
+void quaternionTransformCoordinate(Quaternion rotationQ, Quaternion *localQ) {
+    Quaternion result;
+    Quaternion conjugateQ = {rotationQ.w, -rotationQ.x, -rotationQ.y, -rotationQ.z};
+    result = multiplyQuaternion(conjugateQ, *localQ);
+    localQ->w = result.w;
+    localQ->x = result.x;
+    localQ->y = result.y;
+    localQ->z = result.z;
+}
+
 
 void readParamFile(){
     FILE* fp;
@@ -103,7 +102,7 @@ void readParamFile(){
 }
 
 // Add quaternion to json object
-void jsonAddLeapQuaternion(cJSON* object, LEAP_QUATERNION* rotation)
+void jsonAddLeapQuaternion(cJSON* object, Quaternion* rotation)
 {
     cJSON_AddNumberToObject(object, "w", rotation->w);
     cJSON_AddNumberToObject(object, "x", rotation->x);
@@ -125,10 +124,30 @@ void jsonAddLeapDigits(cJSON* object, LEAP_HAND* hand)
         // Store the quaternion of each joint
         for(int j = 0; j < 4; j++) {
             if(i == 0 && j == 0)
-                break;
+                continue;
             cJSON* json_bone = cJSON_CreateObject();
-            jsonAddLeapQuaternion(json_bone, &hand->digits[i].bones[j].rotation);
-            cJSON_AddItemToObject(js_digit, digitsBonesName[j], json_bone);
+            if(j > 0) {
+                Quaternion preQ;
+                if(i == 0){     // Thumb use the palm coordinate system
+                    LEAP_QUATERNION preBoneQ = hand->palm.orientation;
+                    preQ.w = preBoneQ.w;
+                    preQ.x = preBoneQ.x;
+                    preQ.y = preBoneQ.y;
+                    preQ.z = preBoneQ.z;
+                }
+                else {        // Other fingers
+                    LEAP_QUATERNION preBoneQ = hand->digits[i].bones[j - 1].rotation;
+                    preQ.w = preBoneQ.w;
+                    preQ.x = preBoneQ.x;
+                    preQ.y = preBoneQ.y;
+                    preQ.z = preBoneQ.z;
+                }
+                LEAP_QUATERNION boneQ = hand->digits[i].bones[j].rotation;
+                Quaternion localQ = {boneQ.w, boneQ.x, boneQ.y, boneQ.z};
+                quaternionTransformCoordinate(preQ, &localQ);
+                jsonAddLeapQuaternion(json_bone, &localQ);
+                cJSON_AddItemToObject(js_digit, digitsBonesName[j], json_bone);
+            }
         }
         cJSON_AddItemToObject(object, digitsName[i], js_digit);
     }
@@ -144,18 +163,8 @@ char* leapResultStoreJson(const LEAP_TRACKING_EVENT* frame, long long timestamp)
     cjson_object = cJSON_CreateObject();
     char *str;
 
-    LEAP_DEVICE_REF *device_ref_array = NULL;
-    uint32_t* ref_count = 0;
-    //Open device using LEAP_DEVICE_REF from event struct.
-    LeapGetDeviceList(connection[0], device_ref_array, ref_count);
-    LEAP_DEVICE deviceHandle;
-    eLeapRS result = LeapOpenDevice(device_ref_array[0], &deviceHandle);
-    if(result != eLeapRS_Success){
-        printf("Could not open device %s.\n", ResultString(result));
-        return 0;
-    }
 
-
+    // Store frame information
     cJSON_AddLongLongToObject(cjson_object, "timestamp", timestamp);
     cJSON_AddLongLongToObject(cjson_object, "frame_id", frame->tracking_frame_id);
     cJSON_AddNumberToObject(cjson_object, "finger", 5);
@@ -170,18 +179,15 @@ char* leapResultStoreJson(const LEAP_TRACKING_EVENT* frame, long long timestamp)
 
         leap_transform[0] = hand->palm.position.x;
 
-        LeapGetDeviceTransform(deviceHandle, leap_transform);
-
         cJSON* cjson_wrist = cJSON_CreateObject();
-        jsonAddLeapQuaternion(cjson_wrist, &hand->palm.orientation);
+        Quaternion q = {hand->palm.orientation.w, hand->palm.orientation.x, hand->palm.orientation.y, hand->palm.orientation.z};
+        jsonAddLeapQuaternion(cjson_wrist, &q);
         cJSON_AddItemToObject(cjson_hand, "wrist", cjson_wrist);
         jsonAddLeapDigits(cjson_hand, hand);
         cJSON_AddItemToObject(cjson_object, (hand->type == eLeapHandType_Left ? "left" : "right"), cjson_hand);
     }
     str = cJSON_Print(cjson_object);
     cJSON_free(cjson_object);
-
-    LeapCloseDevice(deviceHandle);
 
     return str;
 }

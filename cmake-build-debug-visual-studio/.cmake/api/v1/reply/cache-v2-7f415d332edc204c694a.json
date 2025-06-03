@@ -63,7 +63,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "25"
+			"value" : "26"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -75,7 +75,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "2"
+			"value" : "4"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",
@@ -99,7 +99,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/bin/cmake.exe"
+			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/232.9921.42/bin/cmake/win/x64/bin/cmake.exe"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -111,7 +111,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/bin/cpack.exe"
+			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/232.9921.42/bin/cmake/win/x64/bin/cpack.exe"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -123,7 +123,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/bin/ctest.exe"
+			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/232.9921.42/bin/cmake/win/x64/bin/ctest.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER",
@@ -467,7 +467,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/231.8770.66/bin/ninja/win/x64/ninja.exe"
+			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/232.9921.42/bin/ninja/win/x64/ninja.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -815,7 +815,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/share/cmake-3.25"
+			"value" : "C:/NormalFolder/software/CompilingSoftware/toolbox/apps/CLion/ch-0/232.9921.42/bin/cmake/win/x64/share/cmake-3.26"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",

@@ -4,11 +4,11 @@
 13	922	7047111075788145	CMakeFiles/libExampleConnection.dir/samples/ExampleConnection.c.obj	48e1db78904052d2
 1549	2513	7022775495860776	CallbackSample.exe	699e80cb24c8f9a9
 2	1870	7047363141771366	CMakeFiles/main.dir/samples/main.c.obj	ffb738200e73434a
-2591	3764	7049198412419727	main_get_image.exe	53fe679df2760ba8
+645	1302	7056665000573862	main_get_image.exe	53fe679df2760ba8
 1871	2593	7047363147151016	main.exe	7a0c7ccd40788c6d
 549	753	7047111072885268	libFunction.lib	7d6a687b1a551cb9
 2	1435	7047240043972912	CMakeFiles/InterpolationSample.dir/samples/InterpolationSample.c.obj	c801e71ddfe6984e
 1436	2557	7047240054149188	InterpolationSample.exe	3b18954166b500d5
-3	2590	7049198403751687	CMakeFiles/main_get_image.dir/samples/main_get_image.c.obj	de8a978db61f29fd
+2	644	7056664996500359	CMakeFiles/main_get_image.dir/samples/main_get_image.c.obj	de8a978db61f29fd
 3	2499	7054349501232406	CMakeFiles/RecordPlayBackSample.dir/samples/RecordPlaybackSample.c.obj	74dd847aa414b9e5
 2500	5268	7054349526561796	RecordPlayBackSample.exe	e219db00fc0c3ef6
