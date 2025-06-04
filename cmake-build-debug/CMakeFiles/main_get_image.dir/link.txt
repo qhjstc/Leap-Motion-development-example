@@ -1,0 +1,3 @@
+D:\software\toolbox\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\main_get_image.dir/objects.a
+D:\software\toolbox\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\main_get_image.dir/objects.a @CMakeFiles\main_get_image.dir\objects1.rsp
+D:\software\toolbox\CLion\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\main_get_image.dir/objects.a -Wl,--no-whole-archive -o main_get_image.exe -Wl,--out-implib,libmain_get_image.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\main_get_image.dir\linkLibs.rsp

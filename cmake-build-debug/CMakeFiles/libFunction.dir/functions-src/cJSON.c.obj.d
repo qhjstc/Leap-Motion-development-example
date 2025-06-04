@@ -1,0 +1,32 @@
+CMakeFiles/libFunction.dir/functions-src/cJSON.c.obj: \
+ D:\cityu\imu\Leap-Motion-development-example\functions-src\cJSON.c \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/string.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/math.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
+ D:/software/toolbox/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
+ D:/software/toolbox/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/limits.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
+ D:/software/toolbox/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/errno.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/ctype.h \
+ D:/software/toolbox/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/float.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/float.h \
+ D:/cityu/imu/Leap-Motion-development-example/functions-inc/cJSON.h \
+ D:/software/toolbox/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
+ D:/software/toolbox/CLion/bin/mingw/x86_64-w64-mingw32/include/stddef.h

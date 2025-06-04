@@ -1,0 +1,2 @@
+D:\software\toolbox\CLion\bin\mingw\bin\ar.exe qc liblibFunction.a "CMakeFiles/libFunction.dir/functions-src/cJSON.c.obj"
+D:\software\toolbox\CLion\bin\mingw\bin\ranlib.exe liblibFunction.a

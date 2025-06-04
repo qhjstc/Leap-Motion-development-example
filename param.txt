@@ -1,0 +1,2 @@
+WHOLE_SAMPLE_TIME = 60000
+STORE_FILE_NAME = D:/cityu/imu/data/leapmotion/data.json

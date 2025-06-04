@@ -21,6 +21,9 @@
 #include "ExampleConnection.h"
 #include "cJSON.h"
 
+#define FILE_PATH           "D:/cityu/imu/data/leapmotion/data.json"
+#define WHOLE_SAMPLE_TIME   (6 * 60 * 1000) // 6 minutes in milliseconds
+
 FILE* leapJsonFile;
 
 // leap object
@@ -88,17 +91,13 @@ char* leapResultStoreJson(LEAP_TRACKING_EVENT* frame, long long timestamp)
 
 int main(int argc, char** argv) {
 
-    long long int WHOLE_SAMPLE_TIME = 6 * 60 * 1000;
-
     time_t current_time;
     struct tm* time_info;
     char time_string[9];
 
-    // 获取当前时间
+    // Get current time
     time(&current_time);
     time_info = localtime(&current_time);
-
-    // 格式化时间字符串
     strftime(time_string, sizeof(time_string), "%H:%M:%S", time_info);
 
     printf("Leap motion data collection proecess starts! Current time is %s\n", time_string);
@@ -109,7 +108,7 @@ int main(int argc, char** argv) {
     }
 
     printf("Connected.\n");
-    if(fopen_s(&leapJsonFile, "D:/cityu/finger-tracking/software/leapmotion/leap-example/leap-data/data.json", "w") != 0)
+    if(fopen_s(&leapJsonFile, FILE_PATH, "w") != 0)
     {
         printf("Can't open file normally!");
         exit(0);

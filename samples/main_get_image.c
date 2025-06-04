@@ -22,12 +22,16 @@ LEAP_CONNECTION *connection = NULL;
 char COLLECT_DATA_MODE[10] = "default";
 long long int WHOLE_SAMPLE_TIME = 6 * 60 * 1000;
 long long START_TIME = 0;
-char leapmotion_store_file_name[256] = "D:/cityu/finger-tracking/software/leapmotion/leap-example/leap-data/data.json";
+char store_file_name[256] = "D:/cityu/imu/data/leapmotion/data.json";
 
 FILE* leapJsonFile;
 typedef struct Quaternion {
     float w, x, y, z;
 } Quaternion;
+
+typedef struct Location {
+    float x, y, z;
+} Location;
 
 // 计算两个四元数相乘
 Quaternion multiplyQuaternion(Quaternion q1, Quaternion q2) {
@@ -50,12 +54,13 @@ void quaternionTransformCoordinate(Quaternion rotationQ, Quaternion *localQ) {
     localQ->z = result.z;
 }
 
+/** ======================================================================================================================== **/
 
 void readParamFile(){
     FILE* fp;
 
     // 打开文件
-    fopen_s(&fp, "D:/cityu/finger-tracking/software/file-control/param.txt", "r");
+    fopen_s(&fp, "../param.txt", "r");
     if (fp == NULL) {
         printf("Leap process: Failed to open file\n");
         return;
@@ -74,20 +79,18 @@ void readParamFile(){
         strcpy_s(name, 100, token);
         token = strtok_s(NULL, " = ", &next_token);
         strcpy_s(value, 256, token);
-//        // 去掉名称和值周围的引号
-//        memmove(name, name + 1, strlen(name) - 2);
-//        memmove(value, value + 1, strlen(value) - 2);
         // 根据名称赋值给对应的变量
         if (strcmp(name, "WHOLE_SAMPLE_TIME") == 0) {
             WHOLE_SAMPLE_TIME = atoi(value);
             printf("Leap process: WHOLE_SAMPLE_TIME = %d\n", WHOLE_SAMPLE_TIME);
         }
-        else if (strcmp(name, "leapmotion_store_file_name") == 0) {
-            int valid_length = strlen(value) - 2;
-            memset(leapmotion_store_file_name, 0, sizeof(leapmotion_store_file_name));
+        else if (strcmp(name, "STORE_FILE_NAME") == 0) {
+            int valid_length = strlen(value);
+            memset(store_file_name, 0, sizeof(store_file_name));
             for(int i = 0; i < valid_length; i++){
-                leapmotion_store_file_name[i] = value[i+1];
+                store_file_name[i] = value[i];
             }
+            printf("Leap process: STORE_FILE_NAME = %s\n", store_file_name);
             // ...
         }
         else if (strcmp(name, "COLLECT_DATA_MODE") == 0) {
@@ -99,6 +102,14 @@ void readParamFile(){
     }
 
     fclose(fp);
+}
+
+// Add location to json object
+void jsonAddLeapLocation(cJSON* object, Location* location)
+{
+    cJSON_AddNumberToObject(object, "x", location->x);
+    cJSON_AddNumberToObject(object, "y", location->y);
+    cJSON_AddNumberToObject(object, "z", location->z);
 }
 
 // Add quaternion to json object
@@ -179,6 +190,10 @@ char* leapResultStoreJson(const LEAP_TRACKING_EVENT* frame, long long timestamp)
 
         leap_transform[0] = hand->palm.position.x;
 
+        cJSON* cjson_position = cJSON_CreateObject();
+        Location position = {hand->palm.position.x, hand->palm.position.y, hand->palm.position.z};
+        jsonAddLeapLocation(cjson_position, &position);
+        cJSON_AddItemToObject(cjson_hand, "position", cjson_position);
         cJSON* cjson_wrist = cJSON_CreateObject();
         Quaternion q = {hand->palm.orientation.w, hand->palm.orientation.x, hand->palm.orientation.y, hand->palm.orientation.z};
         jsonAddLeapQuaternion(cjson_wrist, &q);
@@ -191,6 +206,8 @@ char* leapResultStoreJson(const LEAP_TRACKING_EVENT* frame, long long timestamp)
 
     return str;
 }
+
+/** ======================================================================================================================== **/
 
 /** Callback for when the connection opens. */
 static void OnConnect(void){
@@ -270,26 +287,25 @@ static void OnImage(const LEAP_IMAGE_EVENT *imageEvent){
 //           (long long int)imageEvent->image[0].properties.height*2);
 }
 
+
+/** ======================================================================================================================== **/
 int main(int argc, char** argv) {
     char buf[1024];
     setvbuf(stdout, buf, _IONBF, sizeof(buf));
     readParamFile();
 
-    // Calculate current time
+    // Get current time
     time_t current_time;
     struct tm* time_info;
     char time_string[9];
-    // 获取当前时间
     time(&current_time);
     time_info = localtime(&current_time);
-    // 格式化时间字符串
     strftime(time_string, sizeof(time_string), "%H:%M:%S", time_info);
 
     printf("Leap process: Leap motion data collection proecess starts! Current time is %s\n", time_string);
 
-    printf("%s\n", leapmotion_store_file_name);
     // Creat store json file
-    if(fopen_s(&leapJsonFile, leapmotion_store_file_name, "w") != 0){
+    if(fopen_s(&leapJsonFile, store_file_name, "w") != 0){
         printf("Leap process: Can't open file normally!\n");
         exit(0);
     }
