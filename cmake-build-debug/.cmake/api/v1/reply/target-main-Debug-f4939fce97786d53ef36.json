@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MultiDeviceSample.exe"
+			"path" : "main.exe"
 		},
 		{
-			"path" : "MultiDeviceSample.pdb"
+			"path" : "main.pdb"
 		}
 	],
 	"backtrace" : 2,
@@ -30,7 +30,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 102,
+				"line" : 94,
 				"parent" : 0
 			},
 			{
@@ -95,18 +95,18 @@
 	[
 		{
 			"backtrace" : 3,
-			"id" : "libExampleConnection::@6890427a1f51a3e7e1df"
+			"id" : "libFunction::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 3,
-			"id" : "libFunction::@6890427a1f51a3e7e1df"
+			"id" : "libExampleConnection::@6890427a1f51a3e7e1df"
 		}
 	],
 	"folder" : 
 	{
 		"name" : "Samples"
 	},
-	"id" : "MultiDeviceSample::@6890427a1f51a3e7e1df",
+	"id" : "main::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -136,8 +136,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "MultiDeviceSample",
-	"nameOnDisk" : "MultiDeviceSample.exe",
+	"name" : "main",
+	"nameOnDisk" : "main.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -165,7 +165,7 @@
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "samples/MultiDeviceSample.c",
+			"path" : "samples/main.c",
 			"sourceGroupIndex" : 0
 		},
 		{

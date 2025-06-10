@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "RecordPlayBackSample.exe"
+			"path" : "InterpolationSample.exe"
 		},
 		{
-			"path" : "RecordPlayBackSample.pdb"
+			"path" : "InterpolationSample.pdb"
 		}
 	],
 	"backtrace" : 2,
@@ -30,7 +30,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 100,
+				"line" : 99,
 				"parent" : 0
 			},
 			{
@@ -95,18 +95,18 @@
 	[
 		{
 			"backtrace" : 3,
-			"id" : "libExampleConnection::@6890427a1f51a3e7e1df"
+			"id" : "libFunction::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 3,
-			"id" : "libFunction::@6890427a1f51a3e7e1df"
+			"id" : "libExampleConnection::@6890427a1f51a3e7e1df"
 		}
 	],
 	"folder" : 
 	{
 		"name" : "Samples"
 	},
-	"id" : "RecordPlayBackSample::@6890427a1f51a3e7e1df",
+	"id" : "InterpolationSample::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -136,8 +136,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "RecordPlayBackSample",
-	"nameOnDisk" : "RecordPlayBackSample.exe",
+	"name" : "InterpolationSample",
+	"nameOnDisk" : "InterpolationSample.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -165,7 +165,7 @@
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "samples/RecordPlaybackSample.c",
+			"path" : "samples/InterpolationSample.c",
 			"sourceGroupIndex" : 0
 		},
 		{

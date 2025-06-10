@@ -17,6 +17,9 @@
 #include "math.h"
 #include "cJSON.h"
 
+
+#define CONTROL_MOUSE   TRUE
+
 LEAP_CONNECTION *connection = NULL;
 
 char COLLECT_DATA_MODE[10] = "default";
@@ -56,7 +59,7 @@ void quaternionTransformCoordinate(Quaternion rotationQ, Quaternion *localQ) {
 
 /** ======================================================================================================================== **/
 
-void readParamFile(){
+void readParamFile(const struct tm* time_info){
     FILE* fp;
 
     // 打开文件
@@ -87,9 +90,17 @@ void readParamFile(){
         else if (strcmp(name, "STORE_FILE_NAME") == 0) {
             int valid_length = strlen(value);
             memset(store_file_name, 0, sizeof(store_file_name));
-            for(int i = 0; i < valid_length; i++){
-                store_file_name[i] = value[i];
+            char file_time_string[20];
+            strftime(file_time_string, sizeof(file_time_string), "_%m_%d_%H_%M_%S", time_info);
+            for(int i = 0, j = 0; i < valid_length; i++){
+                if (value[i] == '.') {
+                    for (int k = 0; k < strlen(file_time_string); k++) {
+                        store_file_name[j++] = file_time_string[k];
+                    }
+                }
+                store_file_name[j++] = value[i];
             }
+
             printf("Leap process: STORE_FILE_NAME = %s\n", store_file_name);
             // ...
         }
@@ -102,6 +113,15 @@ void readParamFile(){
     }
 
     fclose(fp);
+
+    fp = fopen("../setting.txt", "w"); // 以追加模式打开
+    if (fp == NULL) {
+        printf("Leap process: Failed to open file for append\n");
+        return;
+    }
+    fprintf(fp, "STORE_FILE_NAME_NEW = %s\n", store_file_name);
+
+    fclose(fp); // 关闭写入流
 }
 
 // Add location to json object
@@ -200,6 +220,54 @@ char* leapResultStoreJson(const LEAP_TRACKING_EVENT* frame, long long timestamp)
         cJSON_AddItemToObject(cjson_hand, "wrist", cjson_wrist);
         jsonAddLeapDigits(cjson_hand, hand);
         cJSON_AddItemToObject(cjson_object, (hand->type == eLeapHandType_Left ? "left" : "right"), cjson_hand);
+
+        if (CONTROL_MOUSE) {
+            const int max_width = GetSystemMetrics(SM_CXSCREEN);
+            const int max_height = GetSystemMetrics(SM_CYSCREEN);
+            const int virtual_width = 200; // mm
+
+            static int mouse_x = 0;
+            static int mouse_y = 0;
+            static int initialized = 0;
+            static float last_position_x = 0;
+            static float last_position_y = 0;
+
+            float position_x = hand->palm.position.x;
+            float position_y = hand->palm.position.y;
+
+            if (!initialized) {
+                mouse_x = max_width / 2;
+                mouse_y = max_height / 2;
+                last_position_x = position_x;
+                last_position_y = position_y;
+                initialized = 1;
+            }
+
+            float offset_pos_x = position_x - last_position_x;
+            float offset_pos_y = position_y - last_position_y;
+
+            int offset_x = (int)(offset_pos_x / (float)virtual_width * (float)max_width);
+            int offset_y = (int)(offset_pos_y / (float)virtual_width * (float)max_height);
+
+            static float total_offset_x = 0;
+            static float total_offset_y = 0;
+
+            total_offset_x += offset_pos_x;
+            total_offset_y += offset_pos_y;
+
+            mouse_x = mouse_x + offset_x;
+            mouse_y = mouse_y - offset_y;
+
+            if (mouse_x < 0) mouse_x = 0;
+            if (mouse_x >= max_width) mouse_x = max_width - 1;
+            if (mouse_y < 0) mouse_y = 0;
+            if (mouse_y >= max_height) mouse_y = max_height - 1;
+
+            last_position_x = position_x;
+            last_position_y = position_y;
+
+            SetCursorPos(mouse_x, mouse_y);
+        }
     }
     str = cJSON_Print(cjson_object);
     cJSON_free(cjson_object);
@@ -292,7 +360,6 @@ static void OnImage(const LEAP_IMAGE_EVENT *imageEvent){
 int main(int argc, char** argv) {
     char buf[1024];
     setvbuf(stdout, buf, _IONBF, sizeof(buf));
-    readParamFile();
 
     // Get current time
     time_t current_time;
@@ -303,6 +370,8 @@ int main(int argc, char** argv) {
     strftime(time_string, sizeof(time_string), "%H:%M:%S", time_info);
 
     printf("Leap process: Leap motion data collection proecess starts! Current time is %s\n", time_string);
+
+    readParamFile(time_info);
 
     // Creat store json file
     if(fopen_s(&leapJsonFile, store_file_name, "w") != 0){

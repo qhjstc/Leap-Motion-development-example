@@ -5,6 +5,6 @@ D:\software\toolbox\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Deb
 -- Check for working C compiler: D:/software/toolbox/CLion/bin/mingw/bin/gcc.exe - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Configuring done (4.3s)
--- Generating done (0.2s)
+-- Configuring done (1.3s)
+-- Generating done (0.1s)
 -- Build files have been written to: D:/cityu/imu/Leap-Motion-development-example/cmake-build-debug
